@@ -3,6 +3,8 @@
     tools:layout="@layout/activity_main" android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
+
+
     <fragment
         android:id="@+id/list"
         android:name="com.example.muditboss.loktra.MainActivityFragment"

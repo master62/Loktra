@@ -2,21 +2,21 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="wrap_content"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:gravity="center_vertical">
 
     <LinearLayout
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_weight="7">
-
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/imageProfile"
-            android:src="@mipmap/ic_launcher"
+            android:padding="2dp"
+            android:layout_margin="16dp"
             />
 
         <TextView
@@ -24,24 +24,22 @@
             android:id="@+id/list_item_author_textview"
             android:fontFamily="roboto"
             android:layout_gravity="center"
-            android:textAppearance="?android:textAppearanceLarge"/>
+            android:padding="2dp"
+            android:layout_margin="6dp"
+            android:textAppearance="?android:textAppearanceMedium"/>
+
+    </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content" android:layout_height="wrap_content"
             android:id="@+id/list_item_sha_textview"
-            android:minHeight="?android:attr/listPreferredItemHeight"
             android:fontFamily="sans-serif-condensed"
             android:textAppearance="?android:textAppearanceSmall"/>
 
         <TextView
             android:layout_width="wrap_content" android:layout_height="wrap_content"
             android:id="@+id/list_item_message_text"
-            android:minHeight="?android:attr/listPreferredItemHeight"
             android:fontFamily="sans-serif-condensed"
             android:textAppearance="?android:textAppearanceSmall"/>
-
-
-    </LinearLayout>
-
 
 </LinearLayout>

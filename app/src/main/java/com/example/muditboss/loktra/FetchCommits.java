@@ -16,28 +16,29 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 
 /**
  * It fetches the commit data on a separate thread
  */
 public class FetchCommits extends AsyncTask<String,Void,String[]> {
 
-    Context mContext;
-    CustomAdapter customAdapter;
-    ListView listView;
+    private Context mContext;
+    private CustomAdapter customAdapter;
+    private ListView listView;
+    private ArrayList<String> dataList;
 
     public FetchCommits(CustomAdapter customAdapter , Context mContext , ListView listview) {
         this.customAdapter = customAdapter;
         this.mContext = mContext;
         this.listView = listview;
-
     }
 
-    private String[] getCommitDataFromJson(String commitJsonString, int number)
+    private String[] getCommitDataFromJson(String commitJsonString)
     throws JSONException{
 
         String[] resultStrs = null;
-
+        dataList = new ArrayList<>();
 
         JSONArray jso = new JSONArray(commitJsonString);
         resultStrs = new String[jso.length()];
@@ -57,12 +58,10 @@ public class FetchCommits extends AsyncTask<String,Void,String[]> {
             String url_avatar = commiterObject.getString("avatar_url");
 
             resultStrs[i] = author+"-"+ commitMsg +"-"+ sha +"-"+url_avatar;
-
+            dataList.add(resultStrs[i]);
             Log.d("SHA",resultStrs[i]);
             Log.d("author",authorObject.getString("name")+i +" "+commitMsg);
         }
-
-
 
         return resultStrs;
     }
@@ -71,11 +70,11 @@ public class FetchCommits extends AsyncTask<String,Void,String[]> {
     protected String[] doInBackground(String... params) {
 
         // These two need to be declared outside the try/catch
-// so that they can be closed in the finally block.
+        // so that they can be closed in the finally block.
         HttpURLConnection urlConnection = null;
         BufferedReader reader = null;
 
-// Will contain the raw JSON response as a string.
+        // Will contain the raw JSON response as a string.
 
         String commitJsonStr = null;
         int number = 25;
@@ -136,7 +135,7 @@ public class FetchCommits extends AsyncTask<String,Void,String[]> {
         }
 
         try {
-            return getCommitDataFromJson(commitJsonStr, number);
+            return getCommitDataFromJson(commitJsonStr);
 
         } catch (Exception e) {
 
@@ -149,9 +148,11 @@ public class FetchCommits extends AsyncTask<String,Void,String[]> {
 
         if(data!=null&&data.length!=0) {
 
-
             customAdapter.resultStrs = data;
+            customAdapter.originalData = dataList;
+            customAdapter.filteredData = dataList;
             listView.setAdapter(customAdapter);
+            MainActivityFragment.progress.dismiss();
         }
         else {
             Log.d("Data ","Empty");
