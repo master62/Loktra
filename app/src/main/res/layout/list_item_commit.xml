@@ -11,6 +11,14 @@
         android:orientation="vertical"
         android:layout_weight="7">
 
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageProfile"
+            android:src="@mipmap/ic_launcher"
+            />
+
         <TextView
             android:layout_width="wrap_content" android:layout_height="wrap_content"
             android:id="@+id/list_item_author_textview"

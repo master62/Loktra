@@ -49,14 +49,16 @@ public class FetchCommits extends AsyncTask<String,Void,String[]> {
             String commitMsg = commitInsideObject.getString("message");
 
             JSONObject authorObject = commitInsideObject.getJSONObject("author");
+            JSONObject commiterObject = commitObject.getJSONObject("committer");
 
             String author = authorObject.getString("name");
 
             String sha = commitObject.getString("sha");
+            String url_avatar = commiterObject.getString("avatar_url");
 
-            resultStrs[i] = author+"-"+ commitMsg +"-"+ sha;
+            resultStrs[i] = author+"-"+ commitMsg +"-"+ sha +"-"+url_avatar;
 
-            Log.d("SHA",commitObject.getString("sha"));
+            Log.d("SHA",resultStrs[i]);
             Log.d("author",authorObject.getString("name")+i +" "+commitMsg);
         }
 
