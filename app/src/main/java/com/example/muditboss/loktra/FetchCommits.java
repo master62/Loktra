@@ -47,20 +47,19 @@ public class FetchCommits extends AsyncTask<String,Void,String[]> {
             JSONObject commitObject = jso.getJSONObject(i);
             JSONObject commitInsideObject =  commitObject.getJSONObject("commit");
 
-            String commitMsg = commitInsideObject.getString("message");
+            String commitMsg = commitInsideObject.getString("message").trim();
 
             JSONObject authorObject = commitInsideObject.getJSONObject("author");
             JSONObject commiterObject = commitObject.getJSONObject("committer");
 
             String author = authorObject.getString("name");
 
-            String sha = commitObject.getString("sha");
             String url_avatar = commiterObject.getString("avatar_url");
 
-            resultStrs[i] = author+"-"+ commitMsg +"-"+ sha +"-"+url_avatar;
+            resultStrs[i] = author+"///"+ commitMsg +"///"+ url_avatar;
             dataList.add(resultStrs[i]);
-            Log.d("SHA",resultStrs[i]);
-            Log.d("author",authorObject.getString("name")+i +" "+commitMsg);
+
+            Log.d("author", author +i +" "+commitMsg + " "+ url_avatar);
         }
 
         return resultStrs;
@@ -69,12 +68,11 @@ public class FetchCommits extends AsyncTask<String,Void,String[]> {
 
     protected String[] doInBackground(String... params) {
 
-        // These two need to be declared outside the try/catch
-        // so that they can be closed in the finally block.
+
         HttpURLConnection urlConnection = null;
         BufferedReader reader = null;
 
-        // Will contain the raw JSON response as a string.
+
 
         String commitJsonStr = null;
         int number = 25;
@@ -91,11 +89,10 @@ public class FetchCommits extends AsyncTask<String,Void,String[]> {
             urlConnection.setRequestMethod("GET");
             urlConnection.connect();
 
-            // Read the input stream into a String
             InputStream inputStream = urlConnection.getInputStream();
             StringBuffer buffer = new StringBuffer();
             if (inputStream == null) {
-                // Nothing to do.
+
                 commitJsonStr = null;
             }
             reader = new BufferedReader(new InputStreamReader(inputStream));
@@ -109,7 +106,7 @@ public class FetchCommits extends AsyncTask<String,Void,String[]> {
             }
 
             if (buffer.length() == 0) {
-                // Stream was empty.  No point in parsing.
+
                 commitJsonStr = null;
             }
             commitJsonStr = buffer.toString();
@@ -118,8 +115,7 @@ public class FetchCommits extends AsyncTask<String,Void,String[]> {
             Log.d("API DATA", commitJsonStr);
         } catch (IOException e) {
             Log.e("PlaceholderFragment", "Error ", e);
-            // If the code didn't successfully get the commit data, there's no point in attempting
-            // to parse it.
+
             commitJsonStr = null;
         } finally {
             if (urlConnection != null) {

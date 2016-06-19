@@ -12,7 +12,11 @@
     <ListView
         android:id="@+id/listview_forecast"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:paddingTop="8dp"
+        android:paddingEnd="2dp"
+        android:paddingRight="2dp"
+        android:background="@color/colorListBckgd">
     </ListView>
 
 </LinearLayout>

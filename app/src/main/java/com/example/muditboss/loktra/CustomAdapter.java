@@ -1,6 +1,7 @@
 package com.example.muditboss.loktra;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,8 @@ public class CustomAdapter extends BaseAdapter implements Filterable{
         private ItemFilter filter = new ItemFilter();
         protected List<String> originalData;
         protected List<String> filteredData;
+        public String wildcardForSplit = "///";
+
 
         public CustomAdapter(Context c,String[] data) {
             mContext = c;
@@ -33,7 +36,10 @@ public class CustomAdapter extends BaseAdapter implements Filterable{
         }
 
         public int getCount() {
-            return 30;
+            if(filteredData.size()!=0)
+                return filteredData.size();
+
+            return 0;
         }
 
         public Object getItem(int position) {
@@ -79,27 +85,27 @@ public class CustomAdapter extends BaseAdapter implements Filterable{
 
                 if (position < filteredData.size()) {
 
-                    separate = filteredData.get(position).split("-");
+                    separate = filteredData.get(position).split(wildcardForSplit);
                     author =  separate[0];
                     commitMsg =  separate[1];
-                    sha =  separate[2];
-                    url = separate[3];
+                    url = separate[2];
 
-                    holder.shaView.setText(sha);
+                  //  holder.shaView.setText(sha);
 
                     holder.authorView.setText(author);
 
                     holder.msgView.setText(commitMsg);
 
-                    if(!url.equals("")) {
-
+                       if(!url.isEmpty())
                         Picasso.with(mContext)
                                 .load(url)
-                                .error(R.mipmap.ic_launcher)
-                                .resize(150, 150)
+                                .error(R.drawable.download)
+                                .resize(120,120)
                                 .centerCrop()
                                 .into(holder.imgView);
-                    }
+
+                           Log.d("Empty_URL", url);
+
                 }
             }
 
@@ -108,14 +114,14 @@ public class CustomAdapter extends BaseAdapter implements Filterable{
 
        private static class ViewHolder{
 
-            private TextView shaView;
+           // private TextView shaView;
             private TextView authorView;
             private TextView msgView;
             private ImageView imgView;
 
             public ViewHolder(View view){
 
-                shaView = (TextView) view.findViewById(R.id.list_item_sha_textview);
+              //  shaView = (TextView) view.findViewById(R.id.list_item_sha_textview);
                 authorView = (TextView) view.findViewById(R.id.list_item_author_textview);
                 msgView = (TextView) view.findViewById(R.id.list_item_message_text);
                 imgView = (ImageView) view.findViewById(R.id.imageProfile);
@@ -139,9 +145,13 @@ public class CustomAdapter extends BaseAdapter implements Filterable{
                 }
             }
 
-            results.values = nlist;
-            results.count = nlist.size();
+            results.values = originalData;
+            results.count = originalData.size();
 
+            if(!nlist.isEmpty()) {
+                results.values = nlist;
+                results.count = nlist.size();
+            }
             return results;
 
         }

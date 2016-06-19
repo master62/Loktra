@@ -7,7 +7,7 @@
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:orientation="horizontal"
         android:layout_weight="7">
 
@@ -15,31 +15,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/imageProfile"
-            android:padding="2dp"
-            android:layout_margin="16dp"
+            android:paddingLeft="16dp"
             />
 
         <TextView
             android:layout_width="wrap_content" android:layout_height="wrap_content"
             android:id="@+id/list_item_author_textview"
-            android:fontFamily="roboto"
             android:layout_gravity="center"
-            android:padding="2dp"
-            android:layout_margin="6dp"
-            android:textAppearance="?android:textAppearanceMedium"/>
+            android:paddingLeft="72dp"
+            android:paddingRight="16dp"
+            android:textStyle="bold"
+            android:textAppearance="?android:textAppearanceMedium" />
 
     </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:id="@+id/list_item_sha_textview"
-            android:fontFamily="sans-serif-condensed"
-            android:textAppearance="?android:textAppearanceSmall"/>
-
-        <TextView
-            android:layout_width="wrap_content" android:layout_height="wrap_content"
             android:id="@+id/list_item_message_text"
             android:fontFamily="sans-serif-condensed"
-            android:textAppearance="?android:textAppearanceSmall"/>
+            android:textAppearance="?android:textAppearanceSmall"
+            android:paddingLeft="72dp" />
 
 </LinearLayout>
