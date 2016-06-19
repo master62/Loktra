@@ -51,12 +51,13 @@ public class FetchCommits extends AsyncTask<String,Void,String[]> {
 
             JSONObject authorObject = commitInsideObject.getJSONObject("author");
             JSONObject commiterObject = commitObject.getJSONObject("committer");
-
+            JSONObject authorObj  = commitObject.getJSONObject("author");
             String author = authorObject.getString("name");
+            String login = authorObj.getString("login");
 
-            String url_avatar = commiterObject.getString("avatar_url");
+            String url_avatar = authorObj.getString("avatar_url");
 
-            resultStrs[i] = author+"///"+ commitMsg +"///"+ url_avatar;
+            resultStrs[i] = login+"///"+ commitMsg +"///"+ url_avatar;
             dataList.add(resultStrs[i]);
 
             Log.d("author", author +i +" "+commitMsg + " "+ url_avatar);
