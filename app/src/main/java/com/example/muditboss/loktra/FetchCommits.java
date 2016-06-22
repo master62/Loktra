@@ -50,20 +50,20 @@ public class FetchCommits extends AsyncTask<String,Void,String[]> {
             String commitMsg = commitInsideObject.getString("message").trim();
 
             // Earlier used this parameter
-            //JSONObject authorObject = commitInsideObject.getJSONObject("author");
+            JSONObject authorObject = commitInsideObject.getJSONObject("author");
            // JSONObject commiterObject = commitObject.getJSONObject("committer");
-            // String author = authorObject.getString("name");
-            
+             String author = authorObject.getString("name");
+
             JSONObject authorObj  = commitObject.getJSONObject("author");
 
-            String login = authorObj.getString("login");
+           // String login = authorObj.getString("login");
 
             String url_avatar = authorObj.getString("avatar_url");
 
-            resultStrs[i] = login+"///"+ commitMsg +"///"+ url_avatar;
+            resultStrs[i] = author+"///"+ commitMsg +"///"+ url_avatar;
             dataList.add(resultStrs[i]);
 
-            Log.d("author", login +i +" "+commitMsg + " "+ url_avatar);
+            Log.d("author", author +i +" "+commitMsg + " "+ url_avatar);
         }
 
         return resultStrs;

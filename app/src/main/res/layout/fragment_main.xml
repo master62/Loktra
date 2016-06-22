@@ -8,7 +8,10 @@
         android:layout_width="match_parent"
         android:id="@+id/searchInput"
         android:hint="@string/hint_editText"
-        android:elevation="8dp"/>
+        android:singleLine="true"
+        android:lines="1"
+        android:elevation="8dp"
+        />
     <ListView
         android:id="@+id/listview_forecast"
         android:layout_width="match_parent"
@@ -18,5 +21,7 @@
         android:paddingRight="2dp"
         android:background="@color/colorListBckgd">
     </ListView>
+
+
 
 </LinearLayout>

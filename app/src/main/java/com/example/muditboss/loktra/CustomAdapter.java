@@ -62,17 +62,22 @@ public class CustomAdapter extends BaseAdapter implements Filterable{
 
             ViewHolder holder;
             int layout=R.layout.list_item_commit;
-
+            int empty_layout = R.layout.no_result_filter_layout;
             String author="No result found";
             String sha="";
             String commitMsg="";
             String url="";
 
-            if(convertView==null) {
+            if(convertView==null&&!filteredData.isEmpty()) {
                 convertView = LayoutInflater.from(mContext).inflate(layout, parent, false);
 
                 holder = new ViewHolder(convertView);
                 convertView.setTag(holder);
+            }else if(filteredData.isEmpty()){
+                convertView = LayoutInflater.from(mContext).inflate(empty_layout, parent, false);
+
+                holder = new ViewHolder(convertView);
+                //convertView.setTag(holder);
             }
             else {
                 holder = (ViewHolder) convertView.getTag();
@@ -145,8 +150,8 @@ public class CustomAdapter extends BaseAdapter implements Filterable{
                 }
             }
 
-            results.values = originalData;
-            results.count = originalData.size();
+//            results.values = originalData;
+//            results.count = originalData.size();
 
             if(!nlist.isEmpty()) {
                 results.values = nlist;
@@ -159,8 +164,13 @@ public class CustomAdapter extends BaseAdapter implements Filterable{
 
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
-            filteredData = (ArrayList<String>) results.values;
-            notifyDataSetChanged();
+            if(results.count!=0) {
+                filteredData = (ArrayList<String>) results.values;
+                notifyDataSetChanged();
+            }else
+                filteredData.clear();
+
+
         }
 
     }
